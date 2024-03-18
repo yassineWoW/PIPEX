@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:07:29 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/14 15:42:45 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:15:13 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strstr(const char *haystack, const char *needle)
 	{
 		if (haystack[i] == *needle)
 		{
-			j = 0;
+			j = 0;		
 			while (haystack[i + j] == needle[j])
 			{
 				if (j == needle_len - 1)

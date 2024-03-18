@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:24:11 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/17 14:57:00 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:07:00 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void child1(char *argv[], int *fdp, char *envp[], char *command)
 	if (fd == -1 || dup2(fd, 0) == -1 || dup2(fdp[1], 1) == -1)
 	{
 		perror("in-file failed");
-		exit(0);
+
 	}
 	close(fdp[0]);
 	ft_execute(argv[2], envp, command);
@@ -72,7 +72,7 @@ static void child2(char *argv[], int *fdp, char *envp[], char *command)
 	if (fd == -1 || dup2(fd, 1) == -1 || dup2(fdp[0], 0) == -1)
 	{
 		perror("out-file failed");
-		exit(1); 
+		exit(0); 
 	}
 	close(fdp[1]);
 	ft_execute(argv[3], envp, command);
@@ -83,7 +83,7 @@ void	waiting()
 	
 	while (waitpid(-1, &status, 0) != -1)
 	{
-		if (WEXITSTATUS(status) == 127 || WEXITSTATUS(status) == 1)
+		if (WEXITSTATUS(status) == 127 || WEXITSTATUS(status) == 0)
 			exit(WEXITSTATUS(status));
 	}
 }
@@ -111,6 +111,7 @@ void pipex(char *argv[], char *envp[])
 			perror("forking gone wrong");
 		if (pid2 == 0)
 			child2(argv, fdp, envp,get_command(ft_split(argv[3], ' '), envp) );	
+		wait(NULL);
 	}
 	close(fdp[0]), close(fdp[1]);
 	waiting();

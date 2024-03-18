@@ -24,6 +24,7 @@ fclean	:	clean
 
 re	:	fclean all 
 
+
 git	:
 		git add .	;git commit -m "pipex"; git push
 
