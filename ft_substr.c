@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:49:25 by yimizare          #+#    #+#             */
-/*   Updated: 2024/02/20 08:28:52 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:25:31 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
 	}
 	return (ft_strlen(src));
 }
-
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

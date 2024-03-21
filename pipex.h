@@ -6,21 +6,20 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:21:54 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/17 14:57:33 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:29:54 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	PIPEX_H
+#ifndef PIPEX_H
 # define PIPEX_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <sys/wait.h>
-#include <errno.h>
-#include <fcntl.h>
-
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <time.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <fcntl.h>
 
 int		ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);
@@ -32,6 +31,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*getpaths(char *envp[]);
 char	*get_command(char **command_av, char *envp[]);
 void	pipex(char *argv[], char *envp[]);
-void	waiting();
+void	waiting(void);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:50:21 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/17 00:45:58 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/21 13:48:30 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	if (argc != 5)
 	{
@@ -23,5 +23,5 @@ int main(int argc, char *argv[], char *envp[])
 	{
 		pipex(argv, envp);
 	}
-	return 0;
+	return (0);
 }
