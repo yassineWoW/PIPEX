@@ -7,8 +7,6 @@ CC	=	CC
 
 CFLAGS	=	-Wall -Wextra -Werror
 
-RM	=	rm -f
-
 SRCS_O	=	${SRCS:.c=.o}
 
 all	:	${NAME}
@@ -17,13 +15,12 @@ ${NAME}	:	${SRCS_O}
 			${CC} ${CFLAGS} $? -o $@
 
 clean	:	
-	${RM} ${SRCS_O}
+	@rm -f ${SRCS_O}
 
 fclean	:	clean
-			${RM} ${NAME}
+	@rm -f ${NAME}
 
 re	:	fclean all 
-
 
 git	:
 		git add .	;git commit -m "pipex"; git push
