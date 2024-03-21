@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 16:29:57 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/21 13:48:00 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:51:34 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ char	*ft_strchr(const char *s, int c)
 	return ((char *)&s[i]);
 }
 
-void	free_split(char **command_av) 
+void	free_split(char **command_av)
 {
-	int i = 0;
-	while(command_av[i])
+	int	i;
+
+	i = 0;
+	while (command_av[i])
 	{
 		free(command_av[i]);
 		i++;
@@ -82,7 +84,7 @@ char	*get_command(char **command_av, char *envp[])
 			(free(s), free(paths[i]));
 		i++;
 	}
-	free_split(command_av)
+	free_split(command_av);
 	free(paths);
 	free(command_path);
 	return (NULL);
