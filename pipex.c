@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:24:11 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/23 00:46:54 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/23 16:49:57 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_execute(char *command_argv, char **envp, char *command_path)
 	else
 		cmd = ft_split(command_argv, ' ');
 	if (command_path == NULL)
-		execve("/bin/cat", cmd, envp);
+			execve("/bin/cat", cmd, envp);
 	else if (execve(command_path, cmd, envp) == -1)
 	{
 		error_msg = ft_strjoin(cmd[0], " command not found:");
@@ -53,6 +53,7 @@ static void	child1(char *argv[], int *fdp, char *envp[], char *command)
 	if (access(argv[1], F_OK) == -1)
 	{
 		perror("no such file or directory: in-file failed");
+		free(command);
 		exit(127);
 	}
 	fd = open(argv[1], O_RDONLY);
@@ -78,7 +79,7 @@ static void	child2(char *argv[], int *fdp, char *envp[], char *command)
 	if (command == NULL)
 	{
 		perror("command2 not valid");
-		exit(0);
+		exit(127);
 	}
 	close(fdp[1]);
 	ft_execute(argv[3], envp, command);
@@ -110,7 +111,7 @@ void	pipex(char *argv[], char *envp[])
 		exit(3);
 	}
 	if (pid1 == 0)
-		child1(argv, fdp, envp, get_command(ft_split(argv[2], ' '), envp));
+			child1(argv, fdp, envp, get_command(ft_split(argv[2], ' '), envp));
 	else
 	{
 		pid2 = fork();
