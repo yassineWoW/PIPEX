@@ -3,7 +3,7 @@ SRCS = ft_split.c ft_calloc.c ft_strstr.c get_command.c \
 
 NAME	=	pipex
 
-CC	=	CC
+CC	=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror
 

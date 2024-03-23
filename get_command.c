@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 16:29:57 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/21 15:51:34 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/22 23:39:17 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ char	*get_command(char **command_av, char *envp[])
 	int		i;
 
 	i = 0;
+	if (command_av[0] == NULL)
+		return (NULL);
 	if (ft_strchr(command_av[0], '/'))
 		return (command_av[0]);
 	bin_paths = getpaths(envp);
@@ -84,8 +86,6 @@ char	*get_command(char **command_av, char *envp[])
 			(free(s), free(paths[i]));
 		i++;
 	}
-	free_split(command_av);
-	free(paths);
-	free(command_path);
+	(free_split(command_av), free(paths), free(command_path));
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:07:29 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/18 17:24:35 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:15:05 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_strlen(const char *s)
 {
 	size_t	i;
 
-	if (s == NULL)
+	if (*s == '\0')
 		return (-1);
 	i = 0;
 	while (s[i] != '\0')

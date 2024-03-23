@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:24:11 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/21 13:48:36 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/23 00:46:54 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,21 @@ static void	child1(char *argv[], int *fdp, char *envp[], char *command)
 {
 	int	fd;
 
-	if (ft_strlen(command) != -1 && command == NULL)
+	if (ft_strlen(argv[2]) != -1 && command == NULL)
 	{
 		perror("command1 not valid");
 		exit(0);
 	}
+	if (access(argv[1], F_OK) == -1)
+	{
+		perror("no such file or directory: in-file failed");
+		exit(127);
+	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1 || dup2(fd, 0) == -1 || dup2(fdp[1], 1) == -1)
 	{
-		perror("in-file failed");
+		perror("no such file or directory :in-file failed");
+		exit(127);
 	}
 	close(fdp[0]);
 	ft_execute(argv[2], envp, command);
@@ -63,15 +69,15 @@ static void	child2(char *argv[], int *fdp, char *envp[], char *command)
 {
 	int	fd;
 
-	if (command == NULL)
-	{
-		perror("command2 not valid hehe");
-		exit(127);
-	}
 	fd = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd == -1 || dup2(fd, 1) == -1 || dup2(fdp[0], 0) == -1)
 	{
-		perror("out-file failed");
+		perror("out-file fail");
+		exit(0);
+	}
+	if (command == NULL)
+	{
+		perror("command2 not valid");
 		exit(0);
 	}
 	close(fdp[1]);
