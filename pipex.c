@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:24:11 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/25 00:55:13 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:21:16 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_execute(char *command_argv, char **envp, char *command_path)
 	cmd = ft_split(command_argv, ' ');
 	if (execve(command_path, cmd, envp) == -1)
 	{
-		error_msg = ft_strjoin("zsh: command not found: ", cmd[0]);
+		error_msg = ft_strjoin("zsh: command not found: \n", cmd[0]);
 		perror(error_msg);
 		if (cmd)
 		{
@@ -40,14 +40,14 @@ static void	child1(char *argv[], int *fdp, char *envp[], char *command)
 {
 	int	fd;
 
-	if (command == NULL)
-	{
-		write(2, ":zsh permission denied:\n", 22);
-		exit(127);
-	}
 	if (access(argv[1], F_OK) == -1)
 	{
 		perror(argv[1]);
+		exit(127);
+	}
+	if (command == NULL)
+	{
+		write(2, ":zsh permission denied:\n", 22);
 		exit(127);
 	}
 	fd = open(argv[1], O_RDONLY);
