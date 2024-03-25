@@ -3,7 +3,7 @@ SRCS = ft_split.c ft_calloc.c ft_strstr.c get_command.c \
 
 NAME	=	pipex
 
-CC	=	CC
+CC	=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror
 
@@ -22,7 +22,4 @@ fclean	:	clean
 
 re	:	fclean all 
 
-git	:
-		git add .	;git commit -m "pipex"; git push
-
-.PHONY	:	clean	fclean
+.PHONY	:	all	re	clean	fclean
