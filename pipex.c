@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:24:11 by yimizare          #+#    #+#             */
-/*   Updated: 2024/03/25 23:21:16 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:17:08 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ static void	ft_execute(char *command_argv, char **envp, char *command_path)
 	cmd = ft_split(command_argv, ' ');
 	if (execve(command_path, cmd, envp) == -1)
 	{
-		error_msg = ft_strjoin("zsh: command not found: \n", cmd[0]);
-		perror(error_msg);
+		error_msg = ft_strjoin("zsh: command not found: ", cmd[0]);
+		write(2, error_msg, ft_strlen(error_msg));
+		write(2, "\n", 1);
 		if (cmd)
 		{
 			while (cmd[i])
@@ -45,9 +46,9 @@ static void	child1(char *argv[], int *fdp, char *envp[], char *command)
 		perror(argv[1]);
 		exit(127);
 	}
-	if (command == NULL)
+	if (ft_strlen(argv[2]) == 0)
 	{
-		write(2, ":zsh permission denied:\n", 22);
+		write(2, "zsh permission denied: \n", 24);
 		exit(127);
 	}
 	fd = open(argv[1], O_RDONLY);
@@ -69,24 +70,13 @@ static void	child2(char *argv[], int *fdp, char *envp[], char *command)
 		perror("out-file failed");
 		exit(0);
 	}
-	if (command == NULL)
+	if (ft_strlen(argv[3]) == 0)
 	{
-		write(2, ":zsh permission denied:\n", 22);
+		write(2, "zsh permission denied:\n", 23);
 		exit(127);
 	}
 	close(fdp[1]);
 	ft_execute(argv[3], envp, command);
-}
-
-void	waiting(void)
-{
-	int	status;
-
-	while (waitpid(-1, &status, 0) != -1)
-	{
-		if (WEXITSTATUS(status) == 127 || WEXITSTATUS(status) == 0)
-			exit(WEXITSTATUS(status));
-	}
 }
 
 void	pipex(char *argv[], char *envp[])
@@ -106,13 +96,12 @@ void	pipex(char *argv[], char *envp[])
 	}
 	else
 	{
+		wait(NULL);
 		pid2 = fork();
 		if (pid2 < 0)
 			perror("forking gone wrong");
 		if (pid2 == 0)
 			child2(argv, fdp, envp, get_command(ft_split(argv[3], ' '), envp));
-		wait(NULL);
 	}
 	(close(fdp[0]), close(fdp[1]));
-	waiting();
 }
